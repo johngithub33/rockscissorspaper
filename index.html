@@ -5,8 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
+
+    <div class="masterHolder">
+        <div class = "buttonHolder"> 
+            <button id="rock">Rock</button>
+            <button id="scissors">Scissors</button>
+            <button id="paper">Paper</button>
+        </div>
+
+        <div class="results">
+            <h1> RESULTS </h1>
+            <p> computer: </p>
+            <p class="computerScore">0</p>
+            <p> player: </p>
+            <p class="playerScore">0</p>
+        </div>
+    </div>
+
 
     <script>
 
@@ -35,18 +55,36 @@
             if(playerSelection == computerSelection) return "tie!"
 
             if(playerSelection == "rock"){
-                if(computerSelection == "paper") {return "You Lose!"}
-                else if(computerSelection == "scissors") {return "You Win!"}
+                if(computerSelection == "paper") {
+                    globalCompScore++;
+                    return "You Lose!"
+
+                }
+                else if(computerSelection == "scissors") {
+                    globalPlayerScore++;
+                    return "You Win!"
+                }
             }
 
             if(playerSelection == "scissors"){
-                if(computerSelection == "paper") {return "You Win!"}
-                else if(computerSelection == "rock") {return "You Lose!"}
+                if(computerSelection == "paper") {
+                    globalPlayerScore++;
+                    return "You Win!"
+                }
+                else if(computerSelection == "rock") {
+                    globalCompScore++;
+                    return "You Lose!"
+                }
             }
 
             if(playerSelection == "paper"){
-                if(computerSelection == "rock") {return "You Win!"}
-                else if(computerSelection == "scissors") {return "You Lose!"}
+                if(computerSelection == "rock") {
+                    globalPlayerScore++;
+                    return "You Win!"}
+                else if(computerSelection == "scissors") {
+                    globalCompScore++;    
+                    return "You Lose!"
+                }
             }
                 
         }
@@ -98,8 +136,38 @@
             return userInput;
         }
 
-        game(enterPrompt());
+        //game(enterPrompt());
 
+        const rockButton = document.querySelector('#rock');
+        rockButton.addEventListener('click', () => { 
+            playerUpdate.textContent = globalPlayerScore;
+            compUpdate.textContent = globalCompScore;
+            console.log(playRound("rock", computerPlay()));
+        });
+   
+        const paperButton = document.querySelector('#paper');
+        paperButton.addEventListener('click', () => { 
+            playerUpdate.textContent = globalPlayerScore;
+            compUpdate.textContent = globalCompScore;
+            playRound("paper", computerPlay())
+        });
+   
+        const scissorsButton = document.querySelector('#scissors');
+        scissorsButton.addEventListener('click', () => { 
+            playerUpdate.textContent = globalPlayerScore;
+            compUpdate.textContent = globalCompScore;
+            playRound("scissors", computerPlay())
+        });
+
+        //class: computerScore
+        var globalPlayerScore = 0;
+        var globalCompScore = 0;
+
+        var playerUpdate = document.querySelector('.playerScore');
+        var compUpdate = document.querySelector('.computerScore')
+        
+        // playerUpdate.textContent = ++globalPlayerScore;
+   
         
 
        
