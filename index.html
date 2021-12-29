@@ -18,12 +18,19 @@
             <button id="paper">Paper</button>
         </div>
 
+        <div class="compSelection">
+            <h1> COMPUTER SELECTION: </h1>
+            <p class="compLiveSelection"> none yet. </p>
+        </div>
+
         <div class="results">
             <h1> RESULTS </h1>
             <p> computer: </p>
             <p class="computerScore">0</p>
             <p> player: </p>
             <p class="playerScore">0</p>
+            <p> ties: </p>
+            <p class="ties">0</p>
         </div>
     </div>
 
@@ -52,16 +59,22 @@
 
             console.log(playerSelection, computerSelection);
 
-            if(playerSelection == computerSelection) return "tie!"
+            if(playerSelection == computerSelection){
+                globalTies++;
+                tiesUpdate.textContent = globalTies;
+                return "tie!"
+            }
 
             if(playerSelection == "rock"){
                 if(computerSelection == "paper") {
                     globalCompScore++;
+                    compUpdate.textContent = globalCompScore;
                     return "You Lose!"
 
                 }
                 else if(computerSelection == "scissors") {
                     globalPlayerScore++;
+                    playerUpdate.textContent = globalPlayerScore;
                     return "You Win!"
                 }
             }
@@ -69,10 +82,12 @@
             if(playerSelection == "scissors"){
                 if(computerSelection == "paper") {
                     globalPlayerScore++;
+                    playerUpdate.textContent = globalPlayerScore;
                     return "You Win!"
                 }
                 else if(computerSelection == "rock") {
                     globalCompScore++;
+                    compUpdate.textContent = globalCompScore;
                     return "You Lose!"
                 }
             }
@@ -80,9 +95,11 @@
             if(playerSelection == "paper"){
                 if(computerSelection == "rock") {
                     globalPlayerScore++;
+                    playerUpdate.textContent = globalPlayerScore;
                     return "You Win!"}
                 else if(computerSelection == "scissors") {
                     globalCompScore++;    
+                    compUpdate.textContent = globalCompScore;
                     return "You Lose!"
                 }
             }
@@ -138,39 +155,30 @@
 
         //game(enterPrompt());
 
-        const rockButton = document.querySelector('#rock');
-        rockButton.addEventListener('click', () => { 
-            playerUpdate.textContent = globalPlayerScore;
-            compUpdate.textContent = globalCompScore;
-            console.log(playRound("rock", computerPlay()));
-        });
-   
-        const paperButton = document.querySelector('#paper');
-        paperButton.addEventListener('click', () => { 
-            playerUpdate.textContent = globalPlayerScore;
-            compUpdate.textContent = globalCompScore;
-            playRound("paper", computerPlay())
-        });
-   
-        const scissorsButton = document.querySelector('#scissors');
-        scissorsButton.addEventListener('click', () => { 
-            playerUpdate.textContent = globalPlayerScore;
-            compUpdate.textContent = globalCompScore;
-            playRound("scissors", computerPlay())
+        var buttonList = document.querySelectorAll('button');
+        console.log(buttonList);
+
+        buttonList.forEach((buttonElement) => {
+
+                buttonElement.addEventListener('click', () => {
+
+                    let tempCompSelection = computerPlay();
+                    compSelection.textContent = tempCompSelection;
+
+                    console.log(playRound(buttonElement.id, tempCompSelection));
+            })
         });
 
-        //class: computerScore
         var globalPlayerScore = 0;
         var globalCompScore = 0;
+        var globalTies = 0;
 
         var playerUpdate = document.querySelector('.playerScore');
-        var compUpdate = document.querySelector('.computerScore')
-        
-        // playerUpdate.textContent = ++globalPlayerScore;
-   
-        
+        var compUpdate = document.querySelector('.computerScore');
+        var tiesUpdate = document.querySelector('.ties');
 
-       
+        var compSelection = document.querySelector('.compLiveSelection');
+
     </script>
     
 </body>

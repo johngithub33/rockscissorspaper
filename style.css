@@ -34,10 +34,19 @@ button:hover{
     background-color: aquamarine;
 }
 
+.compSelection{
+    text-align: center;
+    color: gray;
+    margin: 15px 0 0 0;
+
+    display: flex;
+    flex-direction: column; 
+}
+
 .results{
     text-align: center;
     color: gray;
-    margin: 75px 0 0 0;
+    margin: 15px 0 0 0;
 
     display: flex;
     flex-direction: column;
