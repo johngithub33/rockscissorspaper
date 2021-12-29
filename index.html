@@ -11,11 +11,9 @@
     <script>
 
 
-        function getRandomInt(max){ return Math.floor(Math.random() * max) + 1; }    
-
         function computerPlay(){
                 
-            switch(getRandomInt(3)){
+            switch(Math.floor(Math.random() * 3) + 1){
                 case 1:
                     return "rock";
                     break;
@@ -29,50 +27,31 @@
 
         }
 
-        function checkUserString(str){
-           
-            if(str == "rock" || str == "scissors" || str == "paper"){
-                return true;
-            }
-
-            else 
-                game(prompt("enter choice: "));
-                // return false;
-
-        }
 
         function playRound(playerSelection, computerSelection){
 
-            playerSelection = playerSelection.toLowerCase();
+            console.log(playerSelection, computerSelection);
 
-            if(checkUserString(playerSelection)){
-         
-                    console.log(playerSelection, computerSelection);
+            if(playerSelection == computerSelection) return "tie!"
 
-                    if(playerSelection == computerSelection) return "tie!"
-
-                    if(playerSelection == "rock"){
-                        if(computerSelection == "paper") {return "You Lose!"}
-                        else if(computerSelection == "scissors") {return "You Win!"}
-                    }
-
-                    if(playerSelection == "scissors"){
-                        if(computerSelection == "paper") {return "You Win!"}
-                        else if(computerSelection == "rock") {return "You Lose!"}
-                    }
-
-                    if(playerSelection == "paper"){
-                        if(computerSelection == "rock") {return "You Win!"}
-                        else if(computerSelection == "scissors") {return "You Lose!"}
-                    }
+            if(playerSelection == "rock"){
+                if(computerSelection == "paper") {return "You Lose!"}
+                else if(computerSelection == "scissors") {return "You Win!"}
             }
 
-                else 
-                {
-                    return "error found!";
-                }
+            if(playerSelection == "scissors"){
+                if(computerSelection == "paper") {return "You Win!"}
+                else if(computerSelection == "rock") {return "You Lose!"}
+            }
+
+            if(playerSelection == "paper"){
+                if(computerSelection == "rock") {return "You Win!"}
+                else if(computerSelection == "scissors") {return "You Lose!"}
+            }
+                
         }
 
+        //playerSelection validated at this point
         function game(playerSelection){
 
             let playerScore = 0;
@@ -82,28 +61,46 @@
             {
                 let result = playRound(playerSelection, computerPlay()) 
 
-                if(result != "error found!")
-                {
-                    if(result == "You Win!")
-                    {
-                        playerScore++;
-                    }
-
-                    else compScore++;
-                }
-
-                else if (result == "error found!")
-                {
-                    console.log('error found haha!')
-                }
+                if(result == "You Win!") { playerScore++; }
+                else compScore++;
+                  
             }
 
-            console.log(playerScore > compScore ? "player" : "computer");
-            console.log(playerScore, compScore);
+            console.log((playerScore > compScore ? "player won" : "computer won"), 
+                '/ score was player vs. comp: ',
+                playerScore, compScore);
         
         }
+
+
+        function checkUserString(str){
+           
+           if(str == "rock" || str == "scissors" || str == "paper"){
+               return true;
+           }
+
+           else 
+               return false;
+       }
         
-        game(prompt("enter choice: "));
+        function enterPrompt(){
+            let userInput;
+            let validated = false;
+
+            do{
+                userInput = prompt("Enter Choice: ").toLowerCase();
+
+                if(checkUserString(userInput)){
+                    validated = true;                    
+                }
+            }while(!validated);
+
+            return userInput;
+        }
+
+        game(enterPrompt());
+
+        
 
        
     </script>
