@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+
+
+        function getRandomInt(max){ return Math.floor(Math.random() * max) + 1; }    
+
+        function computerPlay(){
+                
+            switch(getRandomInt(3)){
+                case 1:
+                    return "rock";
+                    break;
+                case 2:
+                    return "paper";
+                    break;
+                case 3:
+                    return "scissors";
+                    break;
+            }
+
+        }
+
+        function checkUserString(str){
+           
+            if(str == "rock" || str == "scissors" || str == "paper"){
+                return true;
+            }
+
+            else 
+                game(prompt("enter choice: "));
+                // return false;
+
+        }
+
+        function playRound(playerSelection, computerSelection){
+
+            playerSelection = playerSelection.toLowerCase();
+
+            if(checkUserString(playerSelection)){
+         
+                    console.log(playerSelection, computerSelection);
+
+                    if(playerSelection == computerSelection) return "tie!"
+
+                    if(playerSelection == "rock"){
+                        if(computerSelection == "paper") {return "You Lose!"}
+                        else if(computerSelection == "scissors") {return "You Win!"}
+                    }
+
+                    if(playerSelection == "scissors"){
+                        if(computerSelection == "paper") {return "You Win!"}
+                        else if(computerSelection == "rock") {return "You Lose!"}
+                    }
+
+                    if(playerSelection == "paper"){
+                        if(computerSelection == "rock") {return "You Win!"}
+                        else if(computerSelection == "scissors") {return "You Lose!"}
+                    }
+            }
+
+                else 
+                {
+                    return "error found!";
+                }
+        }
+
+        function game(playerSelection){
+
+            let playerScore = 0;
+            let compScore = 0;
+
+            for(let i = 0; i < 5; i++)
+            {
+                let result = playRound(playerSelection, computerPlay()) 
+
+                if(result != "error found!")
+                {
+                    if(result == "You Win!")
+                    {
+                        playerScore++;
+                    }
+
+                    else compScore++;
+                }
+
+                else if (result == "error found!")
+                {
+                    console.log('error found haha!')
+                }
+            }
+
+            console.log(playerScore > compScore ? "player" : "computer");
+            console.log(playerScore, compScore);
+        
+        }
+        
+        game(prompt("enter choice: "));
+
+       
+    </script>
+    
+</body>
+</html>
